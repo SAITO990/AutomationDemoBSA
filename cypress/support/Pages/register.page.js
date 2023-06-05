@@ -1,4 +1,3 @@
-// Page Object for the Register page
 class Register {
     // Properties / elements
   

@@ -23,7 +23,7 @@ This project contains automated tests using Cypress for https://demo.casino/. It
 3. To run the tests in headless mode using the Chrome browser: ```npm run test:headless:chrome```
 
 ### Note:
-1. If you want to run the first test from the command line using the npx cypress run command, be aware that the test will fail. This is because when clicking the registration button, a captcha appears, and it cannot be automatically resolved when executed from the command line. As a result, the test fails.
+1. If you want to run the first test from the command line using the npx cypress run command, be aware that the test will fail. This is because when clicking the registration button, a captcha appears, and it cannot be automatically resolved when executed from the command line.
 
 2. Since the first test cannot be completed, the second test will also fail. This is because the second test relies on having a registered user to perform the account top-up test.
 

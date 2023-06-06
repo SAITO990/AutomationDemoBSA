@@ -14,7 +14,7 @@ module.exports = defineConfig({
       registerPage: "/user/registration",
     },
     DataUser:{
-      email: "test7834qsd@mailinator.com",
+      email: "holamundo@mailinator.com",
       currency: "EUR",
       password: "Password123",
       confirmPassword: "Password123"

@@ -6,44 +6,49 @@ const { registerPage } = Cypress.env('endpoint');
 const { email, currency, password, confirmPassword } = Cypress.env('DataUser');
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-  // Permite que el error no capturado no haga que la prueba falle
+  // Prevents uncaught errors from causing test failures
   return false;
 });
-// Test suite for user registration
-describe('User Register', () => {
-  // Setting up the initial state before running the tests
-  before(() => {
 
-    // Visiting the registration page
+describe('User Register', () => {
+
+  before(() => {
+    // Visit the registration page
     cy.visit(registerPage, {failOnStatusCode: false});
 
-    // Verifying if the URL contains the expected register page URL
+    // Verify if the URL contains the expected register page URL
     cy.url().should('contain', registerPage);
   });
 
-  // Test case for successful registration
   it('register successfully', () => {
-    cy.wait(5000)
+    // Wait for 50 seconds to ensure the page is fully loaded
+    cy.wait(50000);
+
+    // Click on a button with class '.button--t1' inside an element with class '.modal__buttons'
     cy.get('.modal__buttons > .button--t1').click();
-    // Entering the username/email in the registration form
+
+    // Enter the username/email in the registration form
     register.enterUsername(email);
 
-    // Accepting the terms and conditions
+    // Accept the terms and conditions
     register.termsAndConditions();
 
-    // Selecting the currency from the dropdown
+    // Select the currency from the dropdown
     register.selectCurrencyDropdown(currency);
 
-    // Entering the password in the registration form
+    // Enter the password in the registration form
     register.enterPassword(password);
 
-    // Entering the confirmation password in the registration form
+    // Enter the confirmation password in the registration form
     register.enterConfirmationPassword(confirmPassword);
 
-    // Submitting the registration form
+    // Submit the registration form
     register.submitRegister();
 
-    // Verifying if the success notification is visible
+    // Wait for 100 seconds for captcha solving
+    cy.wait(100000);
+
+    // Verify if the success notification is visible
     cy.get('.notification__content').should('be.visible');
   });
 });

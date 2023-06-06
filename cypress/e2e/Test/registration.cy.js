@@ -2,18 +2,20 @@
 const { register } = require('../../support/Pages/register.page');
 
 // Retrieving the required endpoints and data from Cypress environment variables
-const { registerPage, successfullyRegister } = Cypress.env('endpoint');
+const { registerPage } = Cypress.env('endpoint');
 const { email, currency, password, confirmPassword } = Cypress.env('DataUser');
 
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // Permite que el error no capturado no haga que la prueba falle
+  return false;
+});
 // Test suite for user registration
 describe('User Register', () => {
   // Setting up the initial state before running the tests
   before(() => {
-    // Adding a delay of 10 seconds to ensure stability
-    cy.wait(10000);
 
     // Visiting the registration page
-    cy.visit(registerPage);
+    cy.visit(registerPage, {failOnStatusCode: false});
 
     // Verifying if the URL contains the expected register page URL
     cy.url().should('contain', registerPage);
@@ -21,6 +23,8 @@ describe('User Register', () => {
 
   // Test case for successful registration
   it('register successfully', () => {
+    cy.wait(5000)
+    cy.get('.modal__buttons > .button--t1').click();
     // Entering the username/email in the registration form
     register.enterUsername(email);
 

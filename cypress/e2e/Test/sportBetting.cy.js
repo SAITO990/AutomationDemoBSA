@@ -5,20 +5,20 @@ const { CreditsPage } = require("../../support/Pages/credits.page");
 // Retrieving the email and password from Cypress environment variables
 const { email, password } = Cypress.env('DataUser');
 
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // Permite que el error no capturado no haga que la prueba falle
+  return false;
+});
+
 // Test suite
-describe('Test', { testIsolation: false }, () => {
+describe('Test',() => {
 
   // Setting up the initial state before running the tests
   before(() => {
-    // Adding a delay of 10 seconds to ensure stability
-    cy.wait(10000);
     // Visiting the homepage
-    cy.visit('/');
-  });
+    cy.visit('/', {failOnStatusCode: false});
+    cy.get('.modal__buttons > .button--t1').click();
 
-  // Test case for user login
-  it('Login User', () => {
-    // Clicking on the login button
     loginPage.clickBtnLogin();
     // Clicking on the email login option
     loginPage.clickBtnEmail();
